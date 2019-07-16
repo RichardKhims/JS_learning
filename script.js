@@ -28,4 +28,24 @@ function calcByDirectorWithoutOscar(director) {
     return result['sum_age']/result['count'];
 }
 
-console.log("Сумма: " + calcByDirectorWithoutOscar('Christopher Nolan') + "\n");
+function actorsPlayedWith(actor, year_after) {
+    const result = films.reduce(function(cur_array, cur_film) {
+        if (cur_film.creationYear < year_after) return cur_array;
+        if (cur_film.actors.every(function(cur_actor) {
+            return cur_actor.name !== actor;
+        })) return cur_array;
+
+        const actors = cur_film.actors.filter(function(item, i, arr) {
+            return item.name !== actor;
+        }).map(function(cur_actor) {
+            return cur_actor.name;
+        });
+
+        return cur_array.concat(actors);
+    }, []);
+
+    return result;
+}
+
+console.log("Сумма: " + calcByDirectorWithoutOscar('Christopher Nolan'));
+console.log("Актеры: " + actorsPlayedWith('Tom Hanks', 1995));
