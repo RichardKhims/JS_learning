@@ -1,28 +1,31 @@
 //@ts-check
 
-let a = prompt("Введите 1-е число");
-let b = prompt("Введите 2-е число");
+function calcByDirectorWithoutOscar(director) {
+    const result = films.reduce(function(res_obj, current) {
+        if (current.director.oscarsCount) return res_obj;
+        if (current.director.name !== director) return res_obj;
 
-let num_a = Number(a);
-let num_b = Number(b);
+        const cur_obj = current.actors.reduce(function(obj, cur_actor) {
+            if (isNaN(obj['sum_age'])) obj['sum_age'] = 0;
+            if (isNaN(obj['count'])) obj['count'] = 0;
 
-function calc_plus(a, b) {
-    return a + b;
+            obj['sum_age'] += cur_actor.age;
+            obj['count'] ++;
+            
+            return obj;
+        }, {}); 
+
+        if (isNaN(res_obj['sum_age'])) res_obj['sum_age'] = 0;
+        if (isNaN(res_obj['count'])) res_obj['count'] = 0;
+
+        res_obj['sum_age'] += cur_obj['sum_age'];
+        res_obj['count'] += cur_obj['count'];
+
+        console.log(res_obj);
+        return res_obj;
+    }, {});
+
+    return result['sum_age']/result['count'];
 }
 
-function calc_minus(a, b) {
-    return a - b;
-}
-
-function calc_multuply(a, b) {
-    return a * b;
-}
-
-function calc_devide(a, b) {
-    return a / b;
-}
-
-alert("Сумма: " + calc_plus(num_a, num_b) + "\n"
-    + "Разность: " + calc_minus(num_a, num_b) + "\n"
-    + "Произведение: " + calc_multuply(num_a, num_b) + "\n"
-    + "Частное: " + calc_devide(num_a, num_b));
+console.log("Сумма: " + calcByDirectorWithoutOscar('Christopher Nolan') + "\n");
