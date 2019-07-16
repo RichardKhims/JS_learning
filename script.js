@@ -20,8 +20,7 @@ function calcByDirectorWithoutOscar(director) {
 
         res_obj['sum_age'] += cur_obj['sum_age'];
         res_obj['count'] += cur_obj['count'];
-
-        console.log(res_obj);
+        
         return res_obj;
     }, {});
 
