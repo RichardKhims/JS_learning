@@ -47,5 +47,19 @@ function actorsPlayedWith(actor, year_after) {
     return result;
 }
 
-console.log("Сумма: " + calcByDirectorWithoutOscar('Christopher Nolan'));
+function sumMoneyWithoutActor(actor, producer_younger) {
+    const result = films.reduce(function(sum, cur_film) {
+        if (cur_film.director.age >= producer_younger) return sum;
+        if (cur_film.actors.some(function(cur_actor) {
+            return cur_actor.name === actor;
+        })) return sum;
+
+        return sum + Number(cur_film.budget.replace(/\D+/g, ""));
+    }, 0);
+
+    return result;
+}
+
+console.log("Средний возраст: " + calcByDirectorWithoutOscar('Christopher Nolan'));
 console.log("Актеры: " + actorsPlayedWith('Tom Hanks', 1995));
+console.log("Бюджет: " + sumMoneyWithoutActor('Tom Hanks', 70));
