@@ -1,64 +1,33 @@
 //@ts-check
 
-function calcByDirectorWithoutOscar(director) {
-    const result = films.reduce(function(res_obj, current) {
-        if (current.director.oscarsCount) return res_obj;
-        if (current.director.name !== director) return res_obj;
+function addTable() {
+  let body = document.querySelector("body");
+  let tableWidth = document.getElementById("table-width");
+  let tableHeight = document.getElementById("table-height");
+  let width = tableWidth.value;
+  let height = tableHeight.value;
+  let numRows = document.getElementById("rows");
+  let numColumns = document.getElementById("columns");
+  let rows = numRows.value;
+  let columns = numColumns.value;
+  let tr = "";
+  let td = "";
+  let table = document.createElement("table");
 
-        const cur_obj = current.actors.reduce(function(obj, cur_actor) {
-            if (isNaN(obj['sum_age'])) obj['sum_age'] = 0;
-            if (isNaN(obj['count'])) obj['count'] = 0;
+  table.setAttribute("border", "2px");
+  table.setAttribute("width", width);
+  table.setAttribute("height", height);
 
-            obj['sum_age'] += cur_actor.age;
-            obj['count'] ++;
-            
-            return obj;
-        }, {}); 
+  for (let i = 0; i < rows; i++) {
+    tr = document.createElement("tr");
+    for (let j = 0; j < columns; j++) {
+      td = document.createElement("td");
+      text = document.createTextNode((i + 1) + "." + (j + 1));
+      td.appendChild(text);
+      tr.appendChild(td);
+    }
+    table.appendChild(tr);
+  }
 
-        if (isNaN(res_obj['sum_age'])) res_obj['sum_age'] = 0;
-        if (isNaN(res_obj['count'])) res_obj['count'] = 0;
-
-        res_obj['sum_age'] += cur_obj['sum_age'];
-        res_obj['count'] += cur_obj['count'];
-        
-        return res_obj;
-    }, {});
-
-    return result['sum_age']/result['count'];
+  return body.appendChild(table);
 }
-
-function actorsPlayedWith(actor, year_after) {
-    const result = films.reduce(function(cur_array, cur_film) {
-        if (cur_film.creationYear < year_after) return cur_array;
-        if (cur_film.actors.every(function(cur_actor) {
-            return cur_actor.name !== actor;
-        })) return cur_array;
-
-        const actors = cur_film.actors.filter(function(item, i, arr) {
-            return item.name !== actor;
-        }).map(function(cur_actor) {
-            return cur_actor.name;
-        });
-
-        return cur_array.concat(actors);
-    }, []);
-
-    return result;
-}
-
-function sumMoneyWithoutActor(actor, producer_younger) {
-    const result = films.reduce(function(sum, cur_film) {
-        if (cur_film.director.age >= producer_younger) return sum;
-        if (cur_film.actors.some(function(cur_actor) {
-            return cur_actor.name === actor;
-        })) return sum;
-
-        return sum + Number(cur_film.budget.replace(/\D+/g, ""));
-    }, 0);
-
-    return result;
-}
-
-console.log("Средний возраст: " + calcByDirectorWithoutOscar('Christopher Nolan'));
-console.log("Актеры: " + actorsPlayedWith('Tom Hanks', 1995));
-console.log("Бюджет: " + sumMoneyWithoutActor('Tom Hanks', 70));

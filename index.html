@@ -1,11 +1,15 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-	<head>
-		<meta charset="utf-8">
-		<title>Hello JS!</title>
-	</head>
-	<body>
-		<script src="films.js" charset="utf-8"></script>
-		<script src="script.js" charset="utf-8"></script>
-	</body>
+<!doctype html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+</head>
+<body>
+	<label><input type="text" id="rows" value="10" style="font-family: Verdana; font-size: 12px; margin-left: 15px; width: 50px;">Количество строк (rows)</label>
+	<label><input type="text" id="columns" value="10" style="font-family: Verdana; font-size: 12px; margin-left: 15px; width: 50px;">Количество столбцов (columns)</label>
+	<label><input type="text" id="table-width" value="300px" style="font-family: Verdana; font-size: 12px; margin-left: 15px; width: 50px;">Ширина таблицы (width)</label>
+	<label><input type="text" id="table-height" value="200px" style="font-family: Verdana; font-size: 12px; margin-left: 15px; width: 50px;">Высота таблицы (height)</label>
+	<button id="create" onclick="addTable();" style="background-color: lime; margin: 5px 15px">Создать</button>
+
+	<script src="script.js"></script>
+</body>
 </html>
